@@ -1,0 +1,25 @@
+#lang racket
+
+(define (children tree)
+  (rest tree))
+
+(define (leaf? tree)
+  (cond
+    [(empty? (rest tree)) true]
+    [else false]))
+
+(define (add-nodes tree)
+  (if (leaf? tree)
+      (first tree)
+      (+ (add-nodes-in-forest (children tree)) (first tree))))
+
+(define (add-nodes-in-forest forest)
+  (if (null? forest)
+      0
+      (+ (add-nodes (first forest))
+         (add-nodes-in-forest (rest forest)))))
+
+
+(add-nodes '(1(2(3))))
+
+  
