@@ -6,33 +6,18 @@
 ;; Call: (bst-has? list number) -> boolean
 ;; Purpose: To see if a binary search tree has a value
 ;; Example: (bst-has? t 8) should return #t
-(define (bst-has? tree value)
-  (or (equal? (first tree) value)
-      (in-bst (rest tree) value)))
 
-;; Call: (in-bst list number) -> boolean
-;; Purpose: To see if a binary search tree has a value
-;; Example: (in-bst t 5) should return #t
+(define (leaf? node)
+  (null? (cdr node)))
 
-(define (in-bst forest value)
-  (if (null? forest)
-      #f
-      (or (bst-has? (first forest) value)
-          (in-bst (rest forest) value))))
-
-
-;(define (in-bst forest value)
-;  (if (null? forest)
-;      #f
-;      (cond
-;        [(list? (first forest))
-;         (if (< (first(first forest)) value)
-;            (bst-has? (first forest) value)
-;            (in-bst (rest forest) value))]
-;        [else 
-;        (if (< (first forest) value)
-;            (bst-has? (first forest) value)
-;            (in-bst (rest forest) value))])))
+  
+(define (bst-has? node val)
+  (cond
+    [(null? node) false]
+    [(= (car node) val) true]
+    [(leaf? node) false]
+    [(> (car node) val) (bst-has? (car (cdr node)) val)]
+    [else (bst-has? (car (cdr (cdr node))) val)]))
 
 (define t '(8(5 (2) (7))(11 (9) (61))))
 

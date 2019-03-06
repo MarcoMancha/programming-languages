@@ -1,23 +1,83 @@
 #lang racket
 
-(define (children tree)
-  (rest tree))
+(define (deep-all-x? forest x)
+    (cond
+      [(null? forest) true]
+      [else (and (check-x (first forest) x) (deep-all-x? (rest forest) x))]))
 
-(define (leaf? tree)
+
+(define (check-x tree x)
   (cond
-    [(empty? (rest tree)) true]
-    [else false]))
+    [(list? tree) (deep-all-x? tree x)]
+    [else 
+    (cond
+      [(= tree x) true]
+      [else false])]))
 
-(define (add-nodes tree)
-  (if (leaf? tree)
-      (first tree)
-      (+ (add-nodes-in-forest (children tree)) (first tree))))
+(deep-all-x? '(2 (2 2) 2(2 (2 2) 2)) 2)
 
-(define (add-nodes-in-forest forest)
-  (if (null? forest)
+(define (deep-reverse A)
+  (reverse A '()))
+
+(define (reverse A B)     
+  (cond
+    [(empty? A) B]
+    [(list? (first A)) (reverse (rest A) (cons (reverse (first A) '()) B))]
+    [else (reverse (rest A) (cons (first A) B))]))
+
+(deep-reverse '(a (b (c d)) e (f g)))
+
+(define (flatten A)
+  (flat A '()))
+
+(define (flat A B)     
+  (cond
+    [(empty? A) B]
+    [(list? (first A)) (flat (first A) (flat (rest A) B))]
+    [else (cons (first A) (flat (rest A) B))]))
+
+(flatten '(a (b (c d)) (e (f g))) )
+
+(define (count-levels A)
+  (if (empty? A)
+    0
+    (if (empty? (rest A))
+        1
+        (+ 1 (levels (rest A))))))
+
+(define (levels A)
+  (if (empty? A)
+    0
+    (max (count-levels(first A)) (levels(rest A)))))
+
+(count-levels '(a (b (c) (d))(e (f) (g))))
+
+(define (count-max-arity A)
+  (cond
+    [(null? (rest A)) 0]
+    [else (max (count-max-arity (rest A)) (arity (first A)))]))
+
+(define (arity A)
+  (if (empty? A)
       0
-      (+ (add-nodes (first forest))
-         (add-nodes-in-forest (rest forest)))))
+  (if (list? A)
+      (+ (arity (first A)) (arity (rest A)))
+      1)))
+
+(define (children node)
+  (rest node))
+
+(define (arity node)
+  (if (list? node)
+      (max (- (length node) 1) (count-max-arity (children node)))
+      0))
+
+(define (count-max-arity tree)
+  (if (null? tree)
+      0
+      (max (arity (first tree))
+         (count-max-arity (rest tree)))))
 
 
-(add-nodes '(1(2(3))))
+
+(count-max-arity '(a (b (c) (d)) (c)))
