@@ -1,87 +1,42 @@
-# Predicting Dog Breeds
+# Guess Who!
 
-Keras application to predict a dogs breed.
+Prolog application to guess a heroe/villain.
 
 ## Tools
 
-Python version 2.7.1
-Keras
-Tensorflow
-Cuda
-cuDNN
+* Swi-prolog
+* Java > 8.0
+* [JPL](https://code.google.com/archive/p/javanaproche/wikis/HowToJPL.wiki)(Library to communicate prolog with java)
+* Python 2.7
 
-Other requirements:
-* imutils
-* opencv-python
-* scipy
-* sklearn
-* matplotlib
+## Installing JPL
 
-## Training
+It's a little bit annoying to install JPL, you can follow [this](https://www.youtube.com/watch?v=cu8HxEpmrQU&t=465s) tutorial with the link I provide bellow.
 
-### train.py
+Also you have to create the following environment variables, to tell prolog where are (libswipl.so, libjvm.so, java and prolog):
+` bash
 
-Script used to train the deep neural network using CNN networks and deep learning techniques.
+# Path to libjvm.so
+export LD_LIBRARY_PATH=/usr/lib/jvm/java-12-oracle/lib/server/${LD_LIBRARY_PATH:+:${LD_LI$
 
-The script needs the following flags:
+# Path to java
+export JAVA_HOME=/usr/lib/jvm/java-12-oracle
 
-#### Flags
+# Path to libswipl.so
+export LD_PRELOAD=/usr/lib/libswipl.so
 
---dataset -> path with images divided by it's class
+# Path to prolog
+export SWIPL=/usr/lib/swi-prolog`
 
---label   -> where you want to store label's file
+## Running the app
 
---model   -> where you want to store the model's file for further predictions
+To run the prolog app using Java and JPL
 
---plot    -> where you want to store the plot image with loss/accuracy (optional)
+`$ swipl -q -t start akijava.pl`
 
-### Example
-`$ python train.py --dataset dataset --label label.pickle --model dogs.model`
+To run just the prolog app
 
-## Predicting
+`$ swipl -q -t start akinator_prolog.pl`
 
-### predict.py
-
-Script used to predict a dogs breed.
-
-The script needs the following flags:
-
-#### Flags
-
---label   -> where the label's file is
-
---model   -> where the model's file is
-
---test    -> path of the image to predict breed
-
-### Example
-`$ python predict.py --label output/label.pickle --model output/dogs.model --test test/chihuahua.jpg`
-
-# Predicting Dog Breeds using Flask and Android
-
-## Extra Tools
-
-* Flask
-* Android Studio
-
-## Input Files
-
-Script is going to search for 2 files:
-
-* Model -> located in /output/dogs.model
-* Classifier -> located in /output/label.pickle
-
-## Running the service
-
-The following command will load the keras trained model and will run the flask server.
-
-`$ python service.py`
-
-## Predicting 
-
-To predict, you only have to send an image via POST to the IP of the computer you are running the server on the PORT 5000.
-
-You can download the [predicting dogs breed app](https://github.com/MarcoMancha/deep-learning/tree/master/android-dogs) or you can send a POST request with an image as parameter using the key 'file' using an app like Postman.
-
-
+And follow the instructions of the game.
 
