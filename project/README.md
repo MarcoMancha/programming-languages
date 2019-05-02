@@ -13,11 +13,11 @@ Prolog application to guess a heroe/villain.
 
 It's a little bit annoying to install JPL, you can follow [this](https://www.youtube.com/watch?v=cu8HxEpmrQU&t=465s) tutorial with the link I provide bellow.
 
-Also you have to create the following environment variables, to tell prolog where are (libswipl.so, libjvm.so, java and prolog):
-` bash
+Also you have to create the following environment variables, to tell prolog where are executables jpl needs:
+```bash
 
 # Path to libjvm.so
-export LD_LIBRARY_PATH=/usr/lib/jvm/java-12-oracle/lib/server/${LD_LIBRARY_PATH:+:${LD_LI$
+export LD_LIBRARY_PATH=/usr/lib/jvm/java-12-oracle/lib/server/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # Path to java
 export JAVA_HOME=/usr/lib/jvm/java-12-oracle
@@ -26,7 +26,8 @@ export JAVA_HOME=/usr/lib/jvm/java-12-oracle
 export LD_PRELOAD=/usr/lib/libswipl.so
 
 # Path to prolog
-export SWIPL=/usr/lib/swi-prolog`
+export SWIPL=/usr/lib/swi-prolog
+```
 
 ## Running the app
 
