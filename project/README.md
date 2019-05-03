@@ -16,6 +16,9 @@ It's a little bit annoying to install JPL, you can follow [this](https://www.you
 Also you have to create the following environment variables, to tell prolog where are executables jpl needs:
 ```bash
 
+#Path to jpl.jar
+export LD_LIBRARY_PATH=/usr/lib/swi-prolog/lib/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 # Path to libjvm.so
 export LD_LIBRARY_PATH=/usr/lib/jvm/java-12-oracle/lib/server/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
@@ -29,7 +32,7 @@ export LD_PRELOAD=/usr/lib/libswipl.so
 export SWIPL=/usr/lib/swi-prolog
 ```
 
-## Running the app
+## Running app with Swi-prolog
 
 To run the prolog app using Java and JPL
 
@@ -40,4 +43,17 @@ To run just the prolog app
 `$ swipl -q -t start akinator_prolog.pl`
 
 And follow the instructions of the game.
+
+## Running the app with executable
+
+To run the prolog app go to executable-linux/ and execute akinator-linux.sh
+
+`$ export JAVA_HOME=/usr/lib/jvm/(your-java-version)`
+
+`$ ./akinator-linux.sh`
+
+If permission denied
+
+`$ chmod 777 akinator-linux.sh`
+
 
