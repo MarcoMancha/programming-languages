@@ -1,19 +1,3 @@
-#     Prolog application that guess the hero/villain
-#     Copyright (C) 2019 Marco Antonio Mancha Alfaro
-#
-#     This program is free software: you can redistribute it and/or modify
-#     it under the terms of the GNU General Public License as published by
-#     the Free Software Foundation, either version 3 of the License, or
-#     (at your option) any later version.
-#
-#     This program is distributed in the hope that it will be useful,
-#     but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU General Public License for more details.
-#
-#     You should have received a copy of the GNU General Public License
-#     along with this program.  If not, see <https://www.gnu.org/licenses/>
-
 import csv
 
 with open('heroes_information.csv', 'rb') as csvfile:
@@ -47,7 +31,10 @@ for name, gender, eye_color, race, hair_color, publisher, skin_color, alignment 
         for power in powers[name]:
             if power == "True":
                 poder = dict_poderes[i].lower()
-                lista_poderes += "check(has_"+poder+");"
+		if cuenta == 0:
+                	lista_poderes += "check(has_"+poder+");"
+		else: 
+			lista_poderes += "\n  check(has_"+poder+");"
                 cuenta = cuenta + 1
             i = i + 1
 
@@ -60,33 +47,33 @@ for name, gender, eye_color, race, hair_color, publisher, skin_color, alignment 
             e = r = h = p = s = a = g
 
             if gender == "Male":
-                g = "sex(is_a_man),"
+                g = "  sex(is_a_man),\n"
 
             if eye_color != '-':
                 eye_color = eye_color.lower()
-                e = "eye_color(has_"+eye_color+"_eye_color),"
+                e = "  eye_color(has_"+eye_color+"_eye_color),\n"
 
             if race != "-":
                 race = race.lower()
-                r = "race(is_a_"+race+"),"
+                r = "  race(is_a_"+race+"),\n"
 
             if hair_color != "-":
                 hair_color = hair_color.lower()
-                h = "hair_color(has_"+hair_color+"_hair),"
+                h = "  hair_color(has_"+hair_color+"_hair),\n"
 
             if publisher != "-":
                 publisher = publisher.lower()
-                p = "publisher(publisher_was_"+publisher+"),"
+                p = "  publisher(publisher_was_"+publisher+"),\n"
 
             if skin_color != "-":
                 skin_color = skin_color.lower()
-                s = "skin_color(has_"+skin_color+"_skin),"
+                s = "  skin_color(has_"+skin_color+"_skin),\n"
 
             if alignment != "-":
                 alignment = alignment.lower()
-                a = "alignment(character_is_"+alignment+"),"
+                a = "  alignment(character_is_"+alignment+"),\n"
 
-            clause += name + ":- "+ g + a + p + r + e + h + s + "(" + lista_poderes +").\n"
+            clause += "\n" + name + ":-\n"+ g + a + p + r + e + h + s + "  (" + lista_poderes + ").\n"
 
 guess += "guess(someone_idk).\n"
 
